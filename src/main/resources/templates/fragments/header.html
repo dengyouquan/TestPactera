@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />
@@ -8,31 +9,77 @@
     <title>Header</title>
 </head>
 <body>
-    <header data-th-fragment="header">
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Fixed navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+    <div class="ui fixed inverted menu" data-th-fragment="header">
+        <!--菜单-->
+        <div class="ui simple dropdown item"><i class="content icon"></i>菜单
+            <div class="menu">
+                <div class="ui left pointing dropdown link item">学习资料
+                    <div class="menu">
+                        <a class="item" href="/course/list?category=computer" th:href="@{'/course/list?category=computer'}">计算机</a>
+                        <a class="item" href="/course/list?category=economics" th:href="@{'/course/list?category=economics'}">经济学</a>
+                        <a class="item" href="/course/list?category=english" th:href="@{'/course/list?category=english'}">外语</a>
+                        <a class="item" href="/course/list?category=science" th:href="@{'/course/list?category=science'}">理学</a>
+                        <a class="item" href="/course/list?category=engineering" th:href="@{'/course/list?category=engineering'}">工学</a>
+                        <a class="item" href="/course/list?category=philosophy" th:href="@{'/course/list?category=philosophy'}">哲学</a>
+                        <a class="item" href="/course/list?category=lifesciences" th:href="@{'/course/list?category=lifesciences'}">生命科学</a>
+                        <a class="item" href="/course/list?category=literature" th:href="@{'/course/list?category=literature'}">文学</a>
+                        <a class="item" href="/course/list?category=psychology" th:href="@{'/course/list?category=psychology'}">心理学</a>
+                        <a class="item" href="/course/list?category=other" th:href="@{'/course/list?category=other'}">其他</a>
+                    </div>
+                </div>
+                <a class="item" href="/teacher" th:action="@{/teacher}">线下互助</a>
+                <a class="item" href="/document" th:action="@{/document}">线上互助</a>
+                <!--admin-->
+                <div sec:authorize ifAllGranted='ROLE_ADMIN'>
+                    <a class="item" href="/users" th:action="@{/users}">控制台</a>
+                </div>
             </div>
-        </nav>
-    </header>
+        </div>
+        <!--logo-->
+        <a href="/index" class="header item">
+            <img class="logo" src="/favicon.ico"> 云智教育
+        </a>
+        <div class="right menu">
+            <!--<div class="item">
+                <div class="ui transparent inverted icon input">
+                    <i class="search icon"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>-->
+            <!--搜索框-->
+            <div class="item">
+                <div class="ui action left icon input">
+                    <i class="search icon"></i>
+                    <input id="searchText" type="text" placeholder="Search">
+                    <button id="searchButton" class="ui button">Submit</button>
+                </div>
+            </div>
+            <!--个人信息-->
+            <div sec:authorize="isAuthenticated()" class="item right">
+                <div class="ui simple dropdown" style="padding-right: 20px">
+                    个人信息 <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="/userspace" th:action="@{/userspace}">账号信息</a>
+                        <a class="item" href="/uploaddocument" th:action="@{/uploaddocument}">上传文档</a>
+                        <a class="item" href="/rewardtask" th:action="@{/rewardtask}">悬赏文档</a>
+                        <a class="item" href="#">成为教师</a>
+                    </div>
+                </div>
+                <div>
+                    <form action="/logout" th:action="@{/logout}" method="post">
+                        <button class="ui primary button">退出</button>
+                    </form>
+                </div>
+            </div>
+            <!--登录，注册-->
+            <div sec:authorize="isAnonymous()" class="item">
+                <a class="ui primary button userlogin">登录 </a>
+            </div>
+            <div sec:authorize="isAnonymous()" class="item">
+                <a class="ui button" href="/users/add">注册 </a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

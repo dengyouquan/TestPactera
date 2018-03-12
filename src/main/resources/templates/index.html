@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,18 +7,217 @@
     <meta name="author" content="dyq">
     <!--favicon图标-->
     <link rel="icon" href="/favicon.ico">
-    <!--bootstrap-->
-    <link type="text/css" src="/bootstrap/css/bootstrap.min.css" />
-    <title>云智学习</title>
+    <!--semantic.css-->
+    <link rel="stylesheet" href="/semantic/semantic.min.css" th:href="@{/semantic/semantic.min.css}" /><title>云智学习</title>
+    <!--layui.css-->
+    <link rel="stylesheet" href="/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+    <!--自定义css-->
+    <link rel="stylesheet" href="/css/custom/index.css" th:href="@{/css/custom/index.css}">
 </head>
 <body>
     <!--header-->
     <div th:replace="~{fragments/header::header}"></div>
     <!--content-->
-    <main role="main" class="container">
-        content
-    </main>
+    <div style="margin-top: 10%;margin-bottom: 5%;margin-right: 0%!important;margin-left: 0%!important">
+       <!-- 轮播-->
+        <div class="layui-carousel" id="carousel">
+            <div carousel-item="">
+                <!--图片大小动态改变-->
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/1.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/2.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/3.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/4.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/5.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/6.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one stackable cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="/images/carousel/7.png">
+                        </div>
+                    </div>
+                </div>
+                <!--<div><img src="/images/carousel/7.png"></div>-->
+            </div>
+        </div>
+
+        <!--课程项目-->
+        <div style="margin-top: 5%;margin-left: 5%">
+            <div class="ui cards courseItems">
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+                <div class="courseItem card">
+                    <div class="image">
+                        <img src="/images/course/msgsearch.jpg">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/course">信息检索</a>
+                        <div class="meta">
+                            <span class="date">进行到第3周</span>
+                        </div>
+                        <div class="description">快捷获取想要的资源，培养信息素养，从容面对信息爆炸的挑战</div>
+                    </div>
+                    <div class="extra content">
+                        <span>中国大学</span>
+                        <span style="float: right">2000人</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="one wide column">four wide column</div>
+        <div class="sixteen wide column">
+        </div>
+        <div class="one wide column">four wide column</div>-->
+    </div>
     <!--footer-->
     <div th:replace="~{/fragments/footer::footer}"></div>
+    <!--自定义js-->
+    <script src="/js/custom/index.js" th:src="@{/js/custom/index.js}" type="text/javascript"></script>
 </body>
 </html>

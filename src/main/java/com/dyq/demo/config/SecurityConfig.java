@@ -19,7 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/index","/favicon.ico","/js","css").permitAll()
+        http.headers().frameOptions().disable();//Refused to display 'http://localhost:8080/login' in a frame because it set 'X-Frame-Options' to 'DENY'.
+        http.authorizeRequests().antMatchers("/index","/","/login/**","/course/**",
+                "/favicon.ico","/js/**","/css/**","/semantic/**","/images/**", "/layui/**","/font/**","/video/**","/jQueryShare/**","/videojs/**").permitAll()
                 //.antMatchers("/users/**").hasRole("ADMIN") // 需要相应的角色才能访问
                 // 其他地址的访问均需验证权限（需要登录）
                 .anyRequest().authenticated()

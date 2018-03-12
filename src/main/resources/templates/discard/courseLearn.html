@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="云智教育学习平台">
+    <meta name="author" content="dyq">
+    <!--favicon图标-->
+    <link rel="icon" href="/favicon.ico">
+    <!--semantic.css-->
+    <link rel="stylesheet" href="/semantic/semantic.min.css" th:href="@{/semantic/semantic.min.css}" /><title>云智学习</title>
+    <!--layui.css-->
+    <link rel="stylesheet" href="/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+    <!--video.css-->
+    <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext">
+    <link rel="stylesheet" href="/videojs/css/advanced.css">
+    <link rel="stylesheet" href="/videojs/css/videojs-playlist-ui.vertical.css">
+</head>
+<body>
+    <!--header-->
+    <div th:replace="~{fragments/header::header}"></div>
+    <!--content-->
+    <div class="ui container" style="margin-top: 10%;margin-bottom: 5%;">
+        <section class="main-preview-player">
+            <video id="preview-player" class="video-js vjs-fluid" controls preload="auto" crossorigin="anonymous">
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+
+            <div class="playlist-container preview-player-dimensions vjs-fluid">
+                <ol class="vjs-playlist"></ol>
+            </div>
+        </section>
+    </div>
+    <!--footer-->
+    <div th:replace="~{/fragments/footer::footer}"></div>
+    <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+    <script src="https://mux-sdks-test.s3.amazonaws.com/videojs/0/videojs-mux.js"></script>
+    <script src="/videojs/js/advanced.js"></script>
+</body>
+</html>

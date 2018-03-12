@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="云智教育学习平台">
+    <meta name="author" content="dyq">
+    <!--favicon图标-->
+    <link rel="icon" href="/favicon.ico">
+    <!--semantic.css-->
+    <link rel="stylesheet" href="/semantic/semantic.min.css" th:href="@{/semantic/semantic.min.css}" /><title>云智学习</title>
+    <!--layui.css-->
+    <link rel="stylesheet" href="/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+    <!--header-->
+    <div th:replace="~{fragments/header::header}"></div>
+    <!--content-->
+    <div class="ui container" style="margin-top: 10%;margin-bottom: 5%;">
+        <!--课程项目-->
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    <img src="/images/image.png">
+                </div>
+                <div class="content">
+                    <a class="header">程序设计基础</a>
+                    <div class="meta">
+                        <span>哈尔滨工业大学</span><span style="margin-left: 10%"> 苏小红 、 赵玲玲 、 叶麟 、 张彦航</span>
+                    </div>
+                    <div class="description">
+                        <p>编程语言层出不穷，能以不变应万变的奥秘就是“编程之魂”。本课程将高中生学习编程前应该了解的那些事儿，从具体的编程语言中剥离出来，取其灵魂，聚焦于程序设计思维的建立，不讲编程语言，只讲编程思想和方法，不写代码，也能运行“程序”。
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <span>100人</span><span style="margin-left: 10%">已结束</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- 课程目录，笔记与讨论-->
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">目录</li>
+                <li>笔记</li>
+                <li>讨论</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    目录
+                    <a href="/course/study">第一章</a>
+                </div>
+                <div class="layui-tab-item">
+                    笔记
+                </div>
+                <div class="layui-tab-item">
+                    讨论
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <div th:replace="~{/fragments/footer::footer}"></div>
+</body>
+</html>
