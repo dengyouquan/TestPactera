@@ -6,6 +6,12 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="Keywords" content="网站关键词">
     <meta name="Description" content="网站介绍">
+
+    <!--CSRF-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <link rel="stylesheet" href="/login/css/base.css">
     <link rel="stylesheet" href="/login/css/iconfont.css">
     <link rel="stylesheet" href="/login/css/reg.css">
@@ -17,31 +23,47 @@
         <div class="form-data find_password">
             <h4>找回密码</h4>
             <p class="right_now">已有账号，<a href="/login">马上登录</a></p>
-            <p class="p-input pos">
-                <label for="pc_tel">手机号/邮箱</label>
+            <p class="p-input pos p-input-1">
+                <label for="pc_tel">手机号</label>
                 <input type="text" id="pc_tel">
-                <span class="tel-warn pc_tel-err hide"><em>最多五个字</em><i class="icon-warn"></i></span>
+                <span class="tel-warn pc_tel-err hide"><em>手机号不存在或未注册</em><i class="icon-warn"></i></span>
             </p>
-            <p class="p-input pos pc-very">
+            <p class="p-input pos pc-very p-input-1">
                 <label for="veri-code">输入验证码</label>
                 <input type="number" id="veri-code">
                 <a href="javascript:;" class="send">发送验证码</a>
                 <span class="time hide"><em>120</em>s</span>
                 <span class="tel-warn error hide"><em>验证码错误，请重新输入</em><i class="icon-warn"></i></span>
             </p>
-            <p class="p-input pos code pc-code">
+            <p class="p-input pos hide p-input-2" id="pwd">
+                <label for="passport">输入密码</label>
+                <input type="password" style="display: none"/>
+                <input type="password" id="passport">
+                <span class="tel-warn pwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
+            </p>
+            <!--<p class="p-input pos hide" id="confirmpwd">-->
+            <p class="p-input pos hide p-input-2" id="confirmpwd">
+                <label for="passport2">确认密码</label>
+                <input type="password" style="position:absolute;top:-998px"/>
+                <input type="password" id="passport2">
+                <span class="tel-warn confirmpwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i>确认密码不一致</span>
+            </p>
+            <!--<p class="p-input pos code pc-code">
                 <label for="veri">请输入验证码</label>
                 <input type="text" id="veri">
-                <img src="#">
+                <img id="verifyImg" src="/login/verifyCode">
                 <span class="tel-warn img-err hide"><em>最多五个字</em><i class="icon-warn"></i></span>
-                <!-- <a href="javascript:;">换一换</a> -->
-            </p>
-            <button class="lang-btn next">下一步</button>
+                &lt;!&ndash; <a href="javascript:;">换一换</a> &ndash;&gt;
+            </p>-->
+            <button class="lang-btn next" id="next-button">下一步</button>
+            <button class="lang-btn next hide" id="modify-button">修改密码</button>
             <p class="right">Powered by © 2018</p>
         </div>
     </div>
 </div>
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/login/js/agree.js"></script>
+<script src="/login/js/getpwd.js"></script>
+<script src="/layer/layer.js"></script>
 </body>
 </html>

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>用户登录</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="Keywords" content="网站关键词">
     <meta name="Description" content="网站介绍">
+
+    <!--CSRF-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <link rel="stylesheet" href="/login/css/base.css">
     <link rel="stylesheet" href="/login/css/iconfont.css">
     <link rel="stylesheet" href="/login/css/reg.css">
@@ -15,14 +21,14 @@
 <div class="wrap">
     <div class="wpn">
         <div class="form-data pos">
-            <a href="#"><img src="login/img/logo.png" class="head-logo"></a>
+            <a href="#"><img src="login/img/login.png" class="head-logo"></a>
             <div class="change-login">
                 <p class="account_number on">账号登录</p>
                 <p class="message">短信登录</p>
             </div>
             <div class="form1">
                 <p class="p-input pos">
-                    <label for="num">手机号/用户名/UID/邮箱</label>
+                    <label for="num">手机号/用户名/邮箱</label>
                     <input type="text" id="num">
                     <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
@@ -32,11 +38,13 @@
                     <input type="password" id="pass" autocomplete="new-password">
                     <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
-                <p class="p-input pos code hide">
+                <!--<p class="p-input pos code hide">-->
+                <p class="p-input pos code">
                     <label for="veri">请输入验证码</label>
                     <input type="text" id="veri">
-                    <img src="#">
-                    <span class="tel-warn img-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                    <!--<img src="#">-->
+                    <img id="verifyImg" src="/login/verifyCode">
+                    <span class="tel-warn img-err hide"><em>验证码错误，请重新输入</em><i class="icon-warn"></i></span>
                     <!-- <a href="javascript:;">换一换</a> -->
                 </p>
             </div>
@@ -53,14 +61,22 @@
                     <span class="time hide"><em>120</em>s</span>
                     <span class="tel-warn error hide">验证码错误</span>
                 </p>
+                <p class="p-input pos code">
+                    <label for="veri1">请输入验证码</label>
+                    <input type="text" id="veri1">
+                    <!--<img src="#">-->
+                    <img id="verifyImg1" src="/login/verifyCode">
+                    <span class="tel-warn img-err1 hide"><em>验证码错误，请重新输入</em><i class="icon-warn"></i></span>
+                    <!-- <a href="javascript:;">换一换</a> -->
+                </p>
             </div>
             <div class="r-forget cl">
-                <a href="/reg" class="z">账号注册</a>
-                <a href="/getpass" class="y">忘记密码</a>
+                <a href="/login/reg" class="z">账号注册</a>
+                <a href="/login/getpwd" class="y">忘记密码</a>
             </div>
             <button class="lang-btn off log-btn">登录</button>
             <div class="third-party">
-                <a href="#" class="log-qq icon-qq-round"></a>
+                <a href="/login/qq" class="log-qq icon-qq-round"></a>
                 <a href="#" class="log-qq icon-weixin"></a>
                 <a href="#" class="log-qq icon-sina1"></a>
             </div>

@@ -6,12 +6,6 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="Keywords" content="网站关键词">
     <meta name="Description" content="网站介绍">
-
-    <!--CSRF-->
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <!-- default header name is X-CSRF-TOKEN -->
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-
     <link rel="stylesheet" href="/login/css/base.css">
     <link rel="stylesheet" href="/login/css/iconfont.css">
     <link rel="stylesheet" href="/login/css/reg.css">
@@ -21,7 +15,7 @@
     <div class="wrap">
         <div class="wpn">
             <div class="form-data pos">
-                <a href="#"><img src="img/register.png" class="head-logo"></a>
+                <a href="#"><img src="img/logo.png" class="head-logo"></a>
                 <!--<p class="tel-warn hide"><i class="icon-warn"></i></p>-->
                 <form>
                     <p class="p-input pos">
@@ -36,13 +30,8 @@
                         <span class="time hide"><em>120</em>s</span>
                         <span class="error hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
                     </p>
-                    <p class="p-input pos" id="account">
-                        <label for="username">输入用户名</label>
-                        <input type="text" id="username">
-                        <span class="tel-warn username-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
-                    </p>
                     <!--<p class="p-input pos hide" id="pwd">-->
-                    <p class="p-input pos" id="pwd">
+                    <p class="p-input pos " id="pwd">
                         <label for="passport">输入密码</label>
                         <input type="password" style="display: none"/>
                         <input type="password" id="passport">
@@ -53,15 +42,14 @@
                         <label for="passport2">确认密码</label>
                         <input type="password" style="position:absolute;top:-998px"/>
                         <input type="password" id="passport2">
-                        <span class="tel-warn confirmpwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i>确认密码不一致</span>
+                        <span class="tel-warn confirmpwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
                     </p>
                 </form>
                 <div class="reg_checkboxline pos">
                     <span class="z"><i class="icon-ok-sign boxcol" nullmsg="请同意!"></i></span>
-                    <input type="hidden" name="agree" id="protocol" value="1">
+                    <input type="hidden" name="agree" value="1">
                     <div class="Validform_checktip"></div>
                     <p>我已阅读并接受 <a href="/login/protocol" target="_brack">《注册协议说明》</a></p>
-                    <span class="tel-warn protocol-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
                 </div>
                 <button class="lang-btn">注册</button>
                 <div class="bottom-info">已有账号，<a href="/login">马上登录</a></div>
@@ -74,10 +62,8 @@
             </div>
         </div>
     </div>
-
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/login/js/agree.js"></script>
-    <script src="/login/js/reg.js"></script>
-    <script src="/layer/layer.js"></script>
+    <script src="/login/js/login.js"></script>
 </body>
 </html>

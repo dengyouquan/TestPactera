@@ -35,6 +35,19 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
+	/*验证码*/
+	compile('com.github.penggle:kaptcha:2.3.2')
+    //compile files('/libs/yunpian-sms-java-1.0-SNAPSHOT.jar') 没法
+	// 添加   Thymeleaf Spring Security 依赖，与 Thymeleaf 版本一致都是 3.x（ sec:authorize="isAnonymous()"使用）:3.0.2.RELEASE
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+
+	compile('org.json:json:20180130')
+
+   /* compile('org.springframework.social:spring-social-config:1.1.6.RELEASE')
+	compile('org.springframework.social:spring-social-core:1.1.6.RELEASE')
+	compile('org.springframework.social:spring-social-security:1.1.6.RELEASE')
+	compile('org.springframework.social:spring-social-web:1.1.6.RELEASE')*/
+
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
 	compileOnly('org.projectlombok:lombok')

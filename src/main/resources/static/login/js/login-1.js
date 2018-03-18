@@ -125,26 +125,18 @@ $(function(){
 			$('.num2-err').text('手机号不合法，请重新输入');
 			return false;
 		}
-        // 获取CSRF Token
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
-            url: '/check/checkPhone',
+            url: '/checkPhone',
             type: 'post',
             dataType: 'json',
             async: false,
             data: {phone:phone,type:"login"},
-            beforeSend: function(request) {
-                request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
-            },
             success:function(data){
-            	//已注册
                 if (data.code == '0') {
                     $('.num2-err').addClass('hide');
                     // console.log('aa');
                     // return true;
                 } else {
-                    //已注册
                     $('.num2-err').removeClass('hide').text(data.msg);
                     // console.log('bb');
 					status = false;
@@ -183,12 +175,8 @@ $(function(){
     $("#verifyImg").click(function () {
         $(this).attr('src', '/login/verifyCode?'+Math.random());
     });
-
-    $("#verifyImg1").click(function () {
-        $(this).attr('src', '/login/verifyCode?'+Math.random());
-    });
-    
-    function loginCustom(phone,pcode,username,email) {
+	
+	function loginVerify(ldata) {
         // 获取CSRF Token
         var csrfToken = $("meta[name='_csrf']").attr("content");
         var csrfHeader = $("meta[name='_csrf_header']").attr("content");
@@ -198,123 +186,46 @@ $(function(){
             type: 'post',
             dataType: 'json',
             async: true,
-            data: {phone: phone, captcha: pcode, username: phone, email: email,password:pcode},
-            beforeSend: function (request) {
-                request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
-            },
-            success: function (data) {
-                alert(data.data)
-                if (data.data == true) {
-                    //登录失败
-                    $('.num2-err').removeClass('hide').text(data.msg);
-                } else {
-                    window.location.href = "/index";
-                }
-            },
-            error: function () {
-
-            }
-        });
-    }
-
-    function loginMobile(phone,pcode,username,email) {
-        // 获取CSRF Token
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        $.ajax({
-            url: '/login/mobile',
-            type: 'post',
-            dataType: 'json',
-            async: true,
-            data: {phone: phone, captcha: pcode, username: phone, email: email,password:pcode},
-            beforeSend: function (request) {
-                request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
-            },
-            success: function (data) {
-                console.log(data)
-                if (data == true) {
-                    //登录失败
-                    $('.num2-err').removeClass('hide').text(data.msg);
-                } else {
-                    if (self != top) {
-                        //alert('在iframe中');
-                        //window.location.reload();
-                        parent.location.reload();//刷新父亲对象(用于框架);
-                    }else{
-                        window.location.href = "/index";
-                    }
-                }
-            },
-            error: function () {
-
-            }
-        });
-    }
-
-	function loginVerify(username,password) {
-        // 获取CSRF Token
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-
-        $.ajax({
-            url: '/login',
-            type: 'post',
-            dataType: 'json',
-            async: true,
-            data: {username:username,password:password},
+            data: ldata,
             beforeSend: function(request) {
                 request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
             },
             success:function(data){
                 console.log(data)
-                //error=false 登录成功
                 if(data.data==false){
-                    //alert("登录成功")
                     $('.pass-err').addClass('hide');
-                    if (self != top) {
-                        //alert('在iframe中');
-                        //window.location.reload();
-                        parent.location.reload();//刷新父亲对象(用于框架);
-                    }else{
-                        window.location.href = "/index";
-                    }
+                    window.location.href="/index";
                 }else{
-                    //登录失败 自定义登录
                     $('.pass-err').removeClass('hide');
-                    //更改验证码
-                    $("#verifyImg").attr('src', '/login/verifyCode?'+Math.random());
-                    //loginCustom(phone,pcode,null,null);
                 }
-            },
-            error:function(){
 
-            }
-        });
-    }
-    
-    function loginVerifyPhone(phone,pcode) {
-        // 获取CSRF Token
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                if (data.code == '0') {
+                    // globalTip({'msg':'登录成功!','setTime':3,'jump':true,'URL':'http://www.ui.cn'});
+                    //globalTip(data.msg);
 
-        $.ajax({
-            url: '/login/phone',
-            type: 'post',
-            dataType: 'json',
-            async: true,
-            data: {phone:phone,pcode:pcode},
-            beforeSend: function(request) {
-                request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
-            },
-            success:function(data){
-                if(data.data==false){
-                    //验证码不正确
-                    $('.error').removeClass('hide');
-                    //更改验证码
-                    $("#verifyImg").attr('src', '/login/verifyCode?'+Math.random());
-                }else{
-                    $('.error').addClass('hide');
-                    loginMobile(phone,pcode,null,null);
+                } else if(data.code == '2') {
+                    $(".log-btn").off('click').addClass("off");
+                    $('.pass-err').removeClass('hide').find('em').text(data.msg);
+                    $('.pass-err').find('i').attr('class', 'icon-warn').css("color","#d9585b");
+                    $('.code').removeClass('hide');
+                    $('.code').find('img').attr('src','/verifyCode?'+Math.random()).click(function(event) {
+                        $(this).attr('src', '/verifyCode?'+Math.random());
+                    });;
+                    return false;
+                } else if(data.code == '3') {
+                    $(".log-btn").off('click').addClass("off");
+                    $('.img-err').removeClass('hide').find('em').text(data.msg);
+                    $('.img-err').find('i').attr('class', 'icon-warn').css("color","#d9585b");
+                    $('.code').removeClass('hide');
+                    $('.code').find('img').attr('src','/verifyCode?'+Math.random()).click(function(event) {
+                        $(this).attr('src', '/verifyCode?'+Math.random());
+                    });
+                    return false;
+                } else if(data.code == '1'){
+                    $(".log-btn").off('click').addClass("off");
+                    $('.num-err').removeClass('hide').find('em').text(data.msg);
+                    $('.num-err').find('i').attr('class', 'icon-warn').css("color","#d9585b");
+                    return false;
                 }
             },
             error:function(){
@@ -350,7 +261,7 @@ $(function(){
                         success:function(data){
                             if (data.data==true) {
                                 $('.img-err').addClass('hide');
-                                loginVerify(inp,pass);
+                                loginVerify(ldata);
                             }else{
                                 $('.img-err').removeClass('hide');
                                 $("#verifyImg").attr('src', '/login/verifyCode?'+Math.random());
@@ -368,25 +279,30 @@ $(function(){
 				var phone = $.trim($('#num2').val());
 				var pcode = $.trim($('#veri-code').val());
 				if (checkPhone(phone) && checkPass(pcode)) {
-
-                    var code = $("#veri1").val();
-                    console.log(code);
-                    //验证码
-                    $.ajax({
-                        url: '/login/verify?verifyCode='+code,
-                        type: 'get',
-                        success:function(data){
-                            if (data.data==true) {
-                                $('.img-err1').addClass('hide');
-                                loginVerifyPhone(phone,pcode);
-                            }else{
-                                $('.img-err1').removeClass('hide');
-                                $("#verifyImg1").attr('src', '/login/verifyCode?'+Math.random());
-                            }
-                        }
-                    });
-
-					
+					$.ajax({
+			            url: '/msglogin',
+			            type: 'post',
+			            dataType: 'json',
+			            async: true,
+			            data: {phone:phone,code:pcode},
+			            success:function(data){
+			                if (data.code == '0') {
+			                	// globalTip({'msg':'登录成功!','setTime':3,'jump':true,'URL':'http://www.ui.cn'});
+			                	globalTip(data.msg);
+			                } else if(data.code == '1') {
+			                	$(".log-btn").off('click').addClass("off");
+			                    $('.num2-err').removeClass('hide').text(data.msg);
+			                    return false;
+			                } else if(data.code == '2') {
+			                	$(".log-btn").off('click').addClass("off");
+			                    $('.error').removeClass('hide').text(data.msg);
+			                    return false;
+			                }
+			            },
+			            error:function(){
+			                
+			            }
+			        });
 				} else {
 					$(".log-btn").off('click').addClass("off");
 					// $('.tel-warn').removeClass('hide').text('登录失败');
@@ -407,29 +323,24 @@ $(function(){
 	$(".form-data").delegate(".send","click",function () {
 		var phone = $.trim($('#num2').val());
 		if (checkPhone(phone)) {
-            // 获取CSRF Token
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-			$.ajax({
-				url: '/login/phoneCode',
-				type: 'post',
-				dataType: 'json',
-				async: true,
-				data: {phone:phone,type:"login"},
-				beforeSend: function(request) {
-					request.setRequestHeader(csrfHeader, csrfToken); // 添加CSRF Token
-				},
-				success:function(data){
-					if (data.code == '0') {
-
-					} else {
-
-					}
-				},
-				error:function(){
-
-				}
-			});
+				alert("getcode");
+				$.ajax({
+		            url: '/getcode',
+		            type: 'post',
+		            dataType: 'json',
+		            async: true,
+		            data: {phone:phone,type:"login"},
+		            success:function(data){
+		                if (data.code == '0') {
+		                    
+		                } else {
+		                    
+		                }
+		            },
+		            error:function(){
+		                
+		            }
+		        });
 	       	var oTime = $(".form-data .time"),
 			oSend = $(".form-data .send"),
 			num = parseInt(oTime.text()),
@@ -450,8 +361,6 @@ $(function(){
 		}
     });
 
-    $('#num').attr("value","dyq");
-    $('#pass').attr("value","123456");
-    $('#num2').attr("value","17729845523");
-    $('#veri-code').attr("value","111111");
+
+
 });
